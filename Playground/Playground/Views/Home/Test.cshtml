@@ -9,35 +9,40 @@
 
 <h3>Add New Student</h3>
 <form class="form form-horizontal" method="POST">
-
+    @*@Html.ValidationSummary()*@
     <div class="form-group">
         <div class="col-md-3">
             <label>[_Id]</label><br />
-            @Html.TextBoxFor(m => m._Id)
+            @Html.TextBoxFor(m => m._Id)<br />
+            @Html.ValidationMessageFor(m=>m._Id)
         </div>
     </div>
     <div class="form-group">
         <div class="col-md-3">
-            <label>_password</label><br />
-            @Html.TextBoxFor(m => m._password)
+            <label>[_password]</label><br />
+            @Html.TextBoxFor(m => m._password)<br />
+            @Html.ValidationMessageFor(m => m._password)
         </div>
     </div>
     <div class="form-group">
         <div class="col-md-3">
             <label>[_name]</label><br />
-            @Html.TextBoxFor(m => m._name)
+            @Html.TextBoxFor(m => m._name)<br />
+            @Html.ValidationMessageFor(m => m._name)
         </div>
     </div>
     <div class="form-group">
         <div class="col-md-3">
             <label>[_age]</label><br />
-            @Html.TextBoxFor(m => m._age)
+            @Html.TextBoxFor(m => m._age)<br />
+            @Html.ValidationMessageFor(m => m._age)
         </div>
     </div>
     <div class="form-group">
         <div class="col-md-3">
             <label>[_checkJoin]</label><br />
-            @Html.CheckBoxFor(m => m._checkJoin)
+            @Html.CheckBoxFor(m => m._checkJoin)<br />
+            @Html.ValidationMessageFor(m => m._checkJoin)
         </div>
     </div>
     <button type="submit" class="btn btn-warning">Submit</button>

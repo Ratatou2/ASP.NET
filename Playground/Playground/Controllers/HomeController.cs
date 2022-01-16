@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Playground.Models;
 using System;
@@ -14,18 +15,76 @@ namespace Playground.Controllers
         public ActionResult Test()
         {
 
+            //Response.Write("<script>alert('메세지박스')</script>");
 
             return View();
         }
 
+
+        public ActionResult LoginSuccess()
+        {
+            return View();
+        }
+
+
         [HttpPost]
+        //[Authorize]
         public ActionResult Test(Test model)
         {
-            string[] userInfo = new string[10];
+            if (true == ModelState.IsValid)
+            {
+                if (model._Id == "Test123" & model._password == "qwer1234")
+                {
+                    return Redirect("LoginSuccess");
+                }
+                else
+                {
+                    return Redirect("Error");
+                }
+            }
+
             
 
             return View();
         }
+
+        //public ActionResult Error()
+        //{
+
+        //    return Redirect("index");
+        //}
+
+
+
+
+
+        //// POST: /Account/Login
+        //[HttpPost]
+        //[AllowAnonymous]
+        //public async Task<IActionResult> LogIn(LoginViewModel model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return View(model);
+        //    }
+
+        //    var account = await _accountService.LogInAsync(model.Email, model.Password);
+
+        //    if (account != null)
+        //    {
+        //        var claims = BuildClaims(account);
+
+        //        var claimsidentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+        //        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsidentity));
+
+        //        return RedirectToAction("Index", "Home");
+        //    }
+
+        //    ModelState.AddModelError(string.Empty, _localizer["사용자 이메일 혹은 비밀번호가 올바르지 않습니다."]);
+        //    return View(model);
+        //}
+
+
 
 
 

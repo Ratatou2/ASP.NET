@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -13,6 +14,7 @@ namespace Playground
 {
     public class Startup  // setting과 관련됨
     {
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -27,6 +29,21 @@ namespace Playground
         {
             services.AddControllersWithViews();
             // DI 서비스란? SRP (single Responsilblity Principle)
+
+
+            services.AddAuthentication(defaultScheme: CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(option => { option.AccessDeniedPath = "/Home/Error"; option.LoginPath = "/login"; });
+            services.AddAuthorization();
+
+            //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
+            //services.ConfigureApplicationCookie(options =>
+            //{
+            //    options.ExpireTimeSpan = TimeSpan.FromHours(1);
+            //    options.LoginPath = "/Account/LogIn";
+            //    options.LogoutPath = "/Account/LogOut";
+            //    options.AccessDeniedPath = "/Home/Index";
+            //});
+
+
         }
 
 
@@ -53,6 +70,14 @@ namespace Playground
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+
+
+            app.UseAuthentication();
+
+
+
+
             app.UseHttpsRedirection();
 
             // CSS, JavaScript 등에서 이미지 요청 받을 때 처리하는 애
